@@ -6,7 +6,7 @@ import {
   FaNodeJs,
   FaReact,
 } from "react-icons/fa";
-import { SiJavascript, SiMongodb, SiTailwindcss, SiVite } from "react-icons/si";
+import { SiJavascript, SiMongodb, SiTailwindcss, SiVite, SiFigma } from "react-icons/si";
 
 export const navLinks = [
   { label: "Home", href: "#home" },
@@ -36,47 +36,25 @@ export const stats = [
 ];
 
 export const techStack = [
-  {
-    label: "React",
-    icon: FaReact,
-    description: "Component-driven frontend development for modern web apps.",
-  },
-  {
-    label: "JavaScript",
-    icon: SiJavascript,
-    description: "Interactive logic and client-side application behavior.",
-  },
-  {
-    label: "Node.js",
-    icon: FaNodeJs,
-    description: "Backend services and API-powered functionality.",
-  },
-  {
-    label: "MongoDB",
-    icon: SiMongodb,
-    description: "Flexible database handling for scalable applications.",
-  },
-  {
-    label: "Tailwind CSS",
-    icon: SiTailwindcss,
-    description: "Fast styling with responsive utility-first workflows.",
-  },
-  {
-    label: "Vite",
-    icon: SiVite,
-    description: "Modern development tooling for fast builds and iteration.",
-  },
+  { label: "React",       icon: FaReact,      color: "#61dafb", level: 90, category: "Frontend",  description: "Component-driven frontend development for modern web apps." },
+  { label: "JavaScript", icon: SiJavascript,  color: "#f7df1e", level: 88, category: "Frontend",  description: "Interactive logic and client-side application behavior." },
+  { label: "Tailwind",   icon: SiTailwindcss, color: "#38bdf8", level: 85, category: "Frontend",  description: "Fast styling with responsive utility-first workflows." },
+  { label: "Node.js",    icon: FaNodeJs,      color: "#8cc84b", level: 75, category: "Backend",   description: "Backend services and API-powered functionality." },
+  { label: "MongoDB",    icon: SiMongodb,     color: "#4db33d", level: 70, category: "Backend",   description: "Flexible database handling for scalable applications." },
+  { label: "Git",        icon: FaGitAlt,      color: "#f05032", level: 82, category: "Tools",     description: "Version control and collaborative development workflows." },
+  { label: "Vite",       icon: SiVite,        color: "#646cff", level: 78, category: "Tools",     description: "Modern development tooling for fast builds and iteration." },
+  { label: "Figma",      icon: SiFigma,       color: "#a259ff", level: 65, category: "Design",    description: "UI/UX design and prototyping for web interfaces." },
 ];
 
 export const socialLinks = [
-  { label: "GitHub", href: "https://github.com/yourusername", icon: FaGithub },
+  { label: "GitHub", href: "https://github.com/TanushreeSoni2021", icon: FaGithub },
   { label: "LinkedIn", href: "https://linkedin.com/in/yourusername", icon: FaLinkedinIn },
 ];
 
 export const contactInfo = {
   email: "tanushreesoni.dev@example.com",
   location: "India",
-  github: "https://github.com/yourusername",
+  github: "https://github.com/TanushreeSoni2021",
   linkedin: "https://linkedin.com/in/yourusername",
 };
 

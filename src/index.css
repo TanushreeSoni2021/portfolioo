@@ -1,68 +1,36 @@
 @import "tailwindcss";
 
-:root {
-  --color-ink: #1a1a1a;
-  --color-muted: #666666;
-  --color-accent: #d99b38;
-  --color-accent-dark: #c28b31;
-  --color-accent-soft: rgba(217, 155, 56, 0.12);
-  --color-surface: #fdfaf6;
-  --color-surface-strong: #f6efe4;
-  --color-border: #ebdcc9;
-  --color-border-soft: #f2e9dc;
-  --portfolio-gradient: #f4eee4;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
 
 body {
-  min-width: 320px;
+  background: #f5ede0;
+  color: #2a1200;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: var(--portfolio-gradient);
-  color: #0f172a;
   -webkit-font-smoothing: antialiased;
 }
 
-a,
-button {
-  transition: all 0.2s ease;
+#root { min-height: 100vh; }
+img { display: block; max-width: 100%; }
+input, textarea, button { font: inherit; }
+a, button { transition: all 0.2s ease; }
+::selection { background: #e8621a; color: white; }
+
+@keyframes orbitCW  { from { transform: rotate(0deg);    } to { transform: rotate(360deg);  } }
+@keyframes orbitCCW { from { transform: rotate(0deg);    } to { transform: rotate(-360deg); } }
+@keyframes counterCW { from { transform: translate(-50%,-50%) rotate(0deg);   } to { transform: translate(-50%,-50%) rotate(-360deg);  } }
+@keyframes counterCCW { from { transform: translate(-50%,-50%) rotate(0deg);  } to { transform: translate(-50%,-50%) rotate(360deg);   } }
+
+@keyframes bgOrbitCW {
+  0%   { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(360deg); }
+}
+@keyframes bgOrbitCCW {
+  0%   { transform: translateY(-50%) rotate(0deg); }
+  100% { transform: translateY(-50%) rotate(-360deg); }
 }
 
-#root {
-  min-height: 100vh;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-input,
-textarea,
-button {
-  font: inherit;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: rgba(148, 163, 184, 0.82);
-}
-
-::selection {
-  background: rgba(217, 155, 56, 0.3);
-  color: white;
-}
-
-@media (max-width: 640px) {
-  body {
-    font-size: 15px;
-  }
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);   opacity: 0.6; }
+  50%       { transform: translate(-50%, -50%) scale(1.18); opacity: 1;   }
 }
