@@ -1,9 +1,13 @@
 import { useState, useEffect } from "react";
 import { profile, stats } from "../data/site";
+import useInView from "../hooks/useInView";
 
 export default function About() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isTablet, setIsTablet] = useState(window.innerWidth < 1024);
+  const [labelRef, labelVisible] = useInView(0.2);
+  const [leftRef, leftVisible] = useInView(0.15);
+  const [rightRef, rightVisible] = useInView(0.15);
 
   useEffect(() => {
     const handle = () => {
@@ -36,9 +40,12 @@ export default function About() {
       }}>
 
         {/* ── LEFT — About ── */}
-        <div style={{
+        <div ref={leftRef} style={{
           flex: 1, display: "flex", flexDirection: "column",
           gap: "28px", justifyContent: "center",
+          opacity: leftVisible ? 1 : 0,
+          transform: leftVisible ? "translateX(0)" : "translateX(-40px)",
+          transition: "opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1)",
         }}>
 
           {/* Label */}
@@ -156,7 +163,15 @@ export default function About() {
             fontWeight: 900, lineHeight: 1.1, letterSpacing: "-1.5px", margin: 0,
           }}>
             Academic<br />
-            <span style={{ color: "#7c4a1e" }}>Journey</span>
+            <span style={{ position: "relative", display: "inline-block" }}>
+              <span style={{ color: "#7c4a1e" }}>Journey</span>
+              <svg viewBox="0 0 200 12" style={{
+                position: "absolute", bottom: "-6px", left: 0, width: "100%", height: "10px",
+              }} preserveAspectRatio="none">
+                <path d="M0,8 Q25,2 50,8 Q75,14 100,8 Q125,2 150,8 Q175,14 200,8"
+                  fill="none" stroke="#7c4a1e" strokeWidth="2.5" strokeLinecap="round" opacity="0.45" />
+              </svg>
+            </span>
           </h2>
 
           <p style={{ color: "#7a4a28", fontSize: isMobile ? "14px" : "15.5px", lineHeight: 1.9, margin: 0 }}>

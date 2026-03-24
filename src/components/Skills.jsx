@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { techStack } from "../data/site";
+import useInView from "../hooks/useInView";
 
 const categories = ["All", "Frontend", "Backend", "Tools", "Design"];
 
-function SkillCard({ skill, animate }) {
+function SkillCard({ skill, animate, index }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -12,80 +13,97 @@ function SkillCard({ skill, animate }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         position: "relative",
-        padding: "24px 20px 20px",
-        borderRadius: "20px",
+        borderRadius: "24px",
         background: hovered
-          ? `linear-gradient(145deg, #eeddd0, ${skill.color}18)`
+          ? `linear-gradient(160deg, #fff8f2, ${skill.color}14)`
           : "#eeddd0",
-        border: `1.5px solid ${hovered ? skill.color + "88" : "#c8a882"}`,
+        border: `1.5px solid ${hovered ? skill.color + "66" : "#c8a882"}`,
         boxShadow: hovered
-          ? `0 12px 40px ${skill.color}33, 0 0 0 1px ${skill.color}22`
-          : "0 4px 16px rgba(0,0,0,0.05)",
-        transition: "all 0.35s ease",
+          ? `0 20px 50px ${skill.color}28, 0 4px 16px rgba(0,0,0,0.08)`
+          : "0 2px 12px rgba(0,0,0,0.06)",
+        transform: hovered ? "translateY(-6px)" : "translateY(0)",
+        transition: "all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)",
         cursor: "default",
         overflow: "hidden",
+        opacity: animate ? 1 : 0,
+        transitionDelay: `${index * 0.06}s`,
       }}
     >
-      {/* Glow blob on hover */}
+      {/* Colored top accent bar */}
       <div style={{
-        position: "absolute", top: "-30px", right: "-30px",
-        width: "100px", height: "100px", borderRadius: "50%",
-        background: `radial-gradient(circle, ${skill.color}33 0%, transparent 70%)`,
+        height: "4px",
+        background: `linear-gradient(90deg, ${skill.color}, ${skill.color}55)`,
+        borderRadius: "24px 24px 0 0",
+      }} />
+
+      {/* Glow blob */}
+      <div style={{
+        position: "absolute", top: "-20px", right: "-20px",
+        width: "120px", height: "120px", borderRadius: "50%",
+        background: `radial-gradient(circle, ${skill.color}22 0%, transparent 70%)`,
         opacity: hovered ? 1 : 0,
-        transition: "opacity 0.35s ease",
+        transition: "opacity 0.4s ease",
         pointerEvents: "none",
       }} />
 
-      {/* Icon + label row */}
-      <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
-        <div style={{
-          width: "44px", height: "44px", borderRadius: "12px",
-          background: hovered ? `${skill.color}22` : "rgba(124,74,30,0.08)",
-          border: `1.5px solid ${hovered ? skill.color + "55" : "#c8a882"}`,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          transition: "all 0.35s ease",
-          boxShadow: hovered ? `0 0 14px ${skill.color}44` : "none",
-        }}>
-          <skill.icon size={22} color={hovered ? skill.color : "#7c4a1e"} style={{ transition: "color 0.3s" }} />
-        </div>
-        <div>
-          <p style={{ color: "#2a1200", fontSize: "15px", fontWeight: 700, margin: 0 }}>{skill.label}</p>
-          <p style={{ color: "#7c4a1e", fontSize: "11px", fontWeight: 600, margin: 0 }}>{skill.category}</p>
-        </div>
-        {/* Level badge */}
-        <div style={{
-          marginLeft: "auto",
-          padding: "3px 10px", borderRadius: "999px",
-          background: hovered ? skill.color : "rgba(124,74,30,0.10)",
-          border: `1px solid ${hovered ? skill.color : "#c8a882"}`,
-          transition: "all 0.35s ease",
-        }}>
-          <span style={{ color: hovered ? "white" : "#7c4a1e", fontSize: "11px", fontWeight: 700 }}>
-            {skill.level}%
-          </span>
-        </div>
-      </div>
+      <div style={{ padding: "22px 22px 20px" }}>
 
-      {/* Description */}
-      <p style={{
-        color: "#7a4a28", fontSize: "12.5px", lineHeight: 1.7,
-        margin: "0 0 14px", minHeight: "36px",
-      }}>{skill.description}</p>
+        {/* Icon box + level */}
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "16px" }}>
+          <div style={{
+            width: "52px", height: "52px", borderRadius: "16px",
+            background: hovered ? `${skill.color}20` : "rgba(124,74,30,0.08)",
+            border: `1.5px solid ${hovered ? skill.color + "55" : "#c8a882"}`,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            transition: "all 0.35s ease",
+            boxShadow: hovered ? `0 0 20px ${skill.color}44` : "none",
+          }}>
+            <skill.icon size={26} color={hovered ? skill.color : "#7c4a1e"} />
+          </div>
 
-      {/* Animated progress bar */}
-      <div style={{
-        height: "6px", borderRadius: "999px",
-        background: "rgba(180,80,10,0.12)",
-        overflow: "hidden",
-      }}>
+          {/* Big level number */}
+          <div style={{ textAlign: "right" }}>
+            <span style={{
+              fontSize: "32px", fontWeight: 900, lineHeight: 1,
+              color: hovered ? skill.color : "#c8a882",
+              transition: "color 0.35s ease",
+              letterSpacing: "-1px",
+            }}>{skill.level}</span>
+            <span style={{ fontSize: "14px", fontWeight: 700, color: hovered ? skill.color : "#c8a882", transition: "color 0.35s ease" }}>%</span>
+          </div>
+        </div>
+
+        {/* Name + category */}
+        <p style={{ color: "#2a1200", fontSize: "16px", fontWeight: 800, margin: "0 0 3px", letterSpacing: "-0.3px" }}>{skill.label}</p>
+        <p style={{
+          color: hovered ? skill.color : "#a0522d",
+          fontSize: "11px", fontWeight: 700, margin: "0 0 12px",
+          letterSpacing: "1.5px", textTransform: "uppercase",
+          transition: "color 0.35s ease",
+        }}>{skill.category}</p>
+
+        {/* Description */}
+        <p style={{
+          color: "#7a4a28", fontSize: "12.5px", lineHeight: 1.7,
+          margin: "0 0 16px", minHeight: "38px",
+        }}>{skill.description}</p>
+
+        {/* Progress bar */}
         <div style={{
-          height: "100%", borderRadius: "999px",
-          width: animate ? `${skill.level}%` : "0%",
-          background: `linear-gradient(90deg, #7c4a1e, ${skill.color})`,
-          boxShadow: `0 0 8px ${skill.color}88`,
-          transition: "width 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
-          transitionDelay: "0.1s",
-        }} />
+          height: "5px", borderRadius: "999px",
+          background: "rgba(124,74,30,0.10)",
+          overflow: "hidden",
+        }}>
+          <div style={{
+            height: "100%", borderRadius: "999px",
+            width: animate ? `${skill.level}%` : "0%",
+            background: `linear-gradient(90deg, #7c4a1e, ${skill.color})`,
+            boxShadow: hovered ? `0 0 10px ${skill.color}99` : "none",
+            transition: "width 1.4s cubic-bezier(0.4, 0, 0.2, 1)",
+            transitionDelay: `${0.2 + index * 0.06}s`,
+          }} />
+        </div>
+
       </div>
     </div>
   );
@@ -96,6 +114,7 @@ export default function Skills() {
   const [animate, setAnimate] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const sectionRef = useRef(null);
+  const [headerRef, headerVisible] = useInView(0.2);
 
   useEffect(() => {
     const handle = () => setIsMobile(window.innerWidth < 768);
@@ -103,11 +122,10 @@ export default function Skills() {
     return () => window.removeEventListener("resize", handle);
   }, []);
 
-  // Trigger progress bar animation when section enters viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) setAnimate(true); },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
@@ -130,6 +148,15 @@ export default function Skills() {
         pointerEvents: "none",
       }} />
 
+      {/* Watermark */}
+      <div style={{
+        position: "absolute", top: "50%", left: "50%",
+        transform: "translate(-50%, -50%)",
+        fontSize: "clamp(80px, 18vw, 200px)", fontWeight: 900,
+        color: "rgba(124,74,30,0.04)", letterSpacing: "0.2em",
+        pointerEvents: "none", userSelect: "none", whiteSpace: "nowrap", zIndex: 0,
+      }}>SKILLS</div>
+
       <div style={{ position: "relative", zIndex: 10, width: "100%", padding: isMobile ? "90px 24px 60px" : "80px 80px" }}>
 
         {/* Header */}
@@ -146,7 +173,15 @@ export default function Skills() {
             fontWeight: 900, lineHeight: 1.1, letterSpacing: "-1.5px", margin: "0 0 16px",
           }}>
             Tools I work<br />
-            <span style={{ color: "#7c4a1e" }}>with daily</span>
+            <span style={{ position: "relative", display: "inline-block" }}>
+              <span style={{ color: "#7c4a1e" }}>with daily</span>
+              <svg viewBox="0 0 200 12" style={{
+                position: "absolute", bottom: "-6px", left: 0, width: "100%", height: "10px",
+              }} preserveAspectRatio="none">
+                <path d="M0,8 Q25,2 50,8 Q75,14 100,8 Q125,2 150,8 Q175,14 200,8"
+                  fill="none" stroke="#7c4a1e" strokeWidth="2.5" strokeLinecap="round" opacity="0.45" />
+              </svg>
+            </span>
           </h2>
           <p style={{ color: "#7a4a28", fontSize: "15px", lineHeight: 1.8, maxWidth: "480px", margin: 0 }}>
             A curated set of technologies I use to build fast, scalable, and beautiful web experiences.
@@ -154,10 +189,10 @@ export default function Skills() {
         </div>
 
         {/* Category tabs */}
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "36px" }}>
+        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginBottom: "40px" }}>
           {categories.map((cat) => (
             <button key={cat} onClick={() => setActiveTab(cat)} style={{
-              padding: "8px 20px", borderRadius: "999px",
+              padding: "9px 22px", borderRadius: "999px",
               fontSize: "13px", fontWeight: 600, cursor: "pointer",
               border: "1.5px solid",
               borderColor: activeTab === cat ? "#7c4a1e" : "#c8a882",
@@ -177,8 +212,8 @@ export default function Skills() {
           gridTemplateColumns: isMobile ? "1fr" : "repeat(4, 1fr)",
           gap: "20px",
         }}>
-          {filtered.map((skill) => (
-            <SkillCard key={skill.label} skill={skill} animate={animate} />
+          {filtered.map((skill, i) => (
+            <SkillCard key={skill.label} skill={skill} animate={animate} index={i} />
           ))}
         </div>
 

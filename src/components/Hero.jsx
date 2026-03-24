@@ -4,6 +4,29 @@ import { SiMongodb, SiTailwindcss, SiFigma, SiJavascript, SiTypescript } from "r
 import { profile, socialLinks } from "../data/site";
 import profileImg from "../assets/mee.png";
 
+const heroStyles = `
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes slideRight {
+    from { opacity: 0; transform: translateX(-24px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideLeft {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translateX(-50%) translateY(0px); }
+    50%       { transform: translateX(-50%) translateY(-10px); }
+  }
+`;
+
 // Each orbit ring: radius, icons on it, speed & direction
 const orbitRings = [
   {
@@ -72,6 +95,7 @@ export default function Hero() {
         overflow: "hidden",
       }}
     >
+      <style>{heroStyles}</style>
       {/* Background orbit circles — left side */}
       <div style={{
         position: "absolute", left: "-180px", top: "50%",

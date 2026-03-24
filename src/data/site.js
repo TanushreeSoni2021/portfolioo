@@ -46,16 +46,52 @@ export const techStack = [
   { label: "Figma",      icon: SiFigma,       color: "#a259ff", level: 65, category: "Design",    description: "UI/UX design and prototyping for web interfaces." },
 ];
 
+export const projects = [
+  {
+    title: "Portfolio Website",
+    description: "A modern personal portfolio built with React and Vite, featuring smooth animations, responsive design, and a clean brown-themed UI.",
+    tags: ["React", "Vite", "CSS"],
+    github: "https://github.com/TanushreeSoni2021",
+    live: "#",
+    featured: true,
+  },
+  {
+    title: "Task Manager App",
+    description: "A full-stack task management application with user authentication, CRUD operations, and real-time updates using Node.js and MongoDB.",
+    tags: ["React", "Node.js", "MongoDB"],
+    github: "https://github.com/TanushreeSoni2021",
+    live: "#",
+    featured: true,
+  },
+  {
+    title: "E-Commerce UI",
+    description: "A responsive e-commerce frontend with product listing, cart functionality, and a clean checkout flow built with React and Tailwind CSS.",
+    tags: ["React", "Tailwind", "JavaScript"],
+    github: "https://github.com/TanushreeSoni2021",
+    live: "#",
+    featured: false,
+  },
+  {
+    title: "Weather Dashboard",
+    description: "A weather app that fetches real-time data from OpenWeather API, displays forecasts with dynamic backgrounds based on conditions.",
+    tags: ["JavaScript", "API", "CSS"],
+    github: "https://github.com/TanushreeSoni2021",
+    live: "#",
+    featured: false,
+  },
+];
+
+
 export const socialLinks = [
   { label: "GitHub", href: "https://github.com/TanushreeSoni2021", icon: FaGithub },
-  { label: "LinkedIn", href: "https://linkedin.com/in/yourusername", icon: FaLinkedinIn },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/tanushree-soni/", icon: FaLinkedinIn },
 ];
 
 export const contactInfo = {
   email: "tanushreesoni.dev@example.com",
   location: "India",
   github: "https://github.com/TanushreeSoni2021",
-  linkedin: "https://linkedin.com/in/yourusername",
+  linkedin: "https://www.linkedin.com/in/tanushree-soni/",
 };
 
 export const skillIcons = {
